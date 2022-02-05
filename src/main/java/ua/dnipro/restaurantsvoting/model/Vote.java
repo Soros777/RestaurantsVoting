@@ -9,4 +9,8 @@ public class Vote extends AbstractBaseEntity{
         this.restaurant = restaurant;
         this.user = user;
     }
+
+    public Vote(User user, Restaurant restaurant) {
+        this(null, restaurant, user);
+    }
 }
