@@ -1,5 +1,8 @@
 package ua.dnipro.restaurantsvoting.service;
 
+import org.springframework.stereotype.Service;
+
+@Service
 public class UserService {
 
     //Users can vote on which restaurant they want to have lunch at

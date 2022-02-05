@@ -1,8 +1,10 @@
 package ua.dnipro.restaurantsvoting.service;
 
+import org.springframework.stereotype.Service;
 import ua.dnipro.restaurantsvoting.repository.JpaDishRepository;
 import ua.dnipro.restaurantsvoting.repository.JpaRestaurantRepository;
 
+@Service
 public class AdminService {
     private JpaRestaurantRepository restaurantRepository;
     private JpaDishRepository dishRepository;

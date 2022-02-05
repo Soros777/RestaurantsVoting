@@ -1,6 +1,7 @@
 package ua.dnipro.restaurantsvoting.repository;
 
-import ua.dnipro.restaurantsvoting.model.Dish;
+import org.springframework.stereotype.Repository;
 
+@Repository
 public class JpaDishRepository {
 }
