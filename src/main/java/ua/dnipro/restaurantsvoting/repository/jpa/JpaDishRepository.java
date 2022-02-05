@@ -1,4 +1,4 @@
-package ua.dnipro.restaurantsvoting.repository;
+package ua.dnipro.restaurantsvoting.repository.jpa;
 
 import org.springframework.stereotype.Repository;
 

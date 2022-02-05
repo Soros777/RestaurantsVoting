@@ -1,11 +1,9 @@
 package ua.dnipro.restaurantsvoting.repository.inMemory;
 
+import org.springframework.stereotype.Repository;
 import ua.dnipro.restaurantsvoting.model.Dish;
+import ua.dnipro.restaurantsvoting.repository.DishRepository;
 
-import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
-
-public class DishMemRepo {
-    private final Map<Integer, Dish> dishes = new ConcurrentHashMap<>();
-
+@Repository
+public class DishMemRepo extends InMemoryBaseRepository<Dish> implements DishRepository {
 }
