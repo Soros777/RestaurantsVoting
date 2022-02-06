@@ -65,9 +65,5 @@ public class AppMain {
         adminService.updateLunchMenu(restaurant1, lunchMenu1);
         adminService.updateLunchMenu(restaurant2, lunchMenu2);
         adminService.updateLunchMenu(restaurant3, lunchMenu3);
-
-
-
-
     }
 }
