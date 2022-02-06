@@ -46,9 +46,9 @@ public class InMemoryRepoUtil {
         lunchMenu3.setRestaurant(restaurant3);
         restaurant3.setLunchMenu(lunchMenu3);
 
-        userRepository.save(new User(Role.ADMIN));
-        userRepository.save(new User(Role.USER));
-        userRepository.save(new User(Role.USER));
-        userRepository.save(new User(Role.USER));
+        userRepository.save(new User(Set.of(Role.ADMIN)));
+        userRepository.save(new User(Set.of(Role.USER)));
+        userRepository.save(new User(Set.of(Role.USER)));
+        userRepository.save(new User(Set.of(Role.USER)));
     }
 }

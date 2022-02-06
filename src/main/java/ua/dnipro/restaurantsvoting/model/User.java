@@ -1,24 +1,40 @@
 package ua.dnipro.restaurantsvoting.model;
 
+import javax.persistence.*;
+import java.util.Set;
+
+@Entity
+@Table(name = "users")
 public class User extends AbstractBaseEntity{
-    private Role role;
+
+    @Enumerated(EnumType.STRING)
+    @CollectionTable(name = "user_roles", joinColumns = @JoinColumn(name = "user_id"),
+                    uniqueConstraints = {@UniqueConstraint(name = "user_role_unique_ctx", columnNames = {"user_id", "role"})})
+    @Column(name = "role")
+    @ElementCollection(fetch = FetchType.EAGER)
+    private Set<Role> roles;
+
+    @Column(name = "voret_today", nullable = false, columnDefinition = "boolean default false")
     private boolean votedToday = false;
 
-    public User(Integer id, Role role) {
+    public User() {
+    }
+
+    public User(Integer id, Set<Role> roles) {
         super(id);
-        this.role = role;
+        this.roles = roles;
     }
 
-    public User(Role role) {
-        this(null, role);
+    public User(Set<Role> roles) {
+        this(null, roles);
     }
 
-    public Role getRole() {
-        return role;
+    public Set<Role> getRoles() {
+        return roles;
     }
 
-    public void setRole(Role role) {
-        this.role = role;
+    public void setRoles(Set<Role> roles) {
+        this.roles = roles;
     }
 
     public boolean isVotedToday() {
@@ -33,7 +49,7 @@ public class User extends AbstractBaseEntity{
     public String toString() {
         return "User{" +
                 "id=" + id +
-                ", role=" + role +
+                ", role=" + roles +
                 ", votedToday=" + votedToday +
                 '}';
     }

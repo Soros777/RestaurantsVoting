@@ -1,9 +1,27 @@
 package ua.dnipro.restaurantsvoting.model;
 
-// @Table(name="dish", )
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Table;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+
+@Entity
+@Table(name = "dishes")
 public class Dish extends AbstractBaseEntity{
+
+    @Column(name = "dish_name", nullable = false)
+    @NotBlank
+    @Size(min = 2, max = 100)
     private String dishName;
+
+    @Column(name = "price", nullable = false, columnDefinition = "integer")
+    @NotNull
     private Integer price;
+
+    public Dish() {
+    }
 
     public Dish(Integer id, String dishName, Integer price) {
         super(id);

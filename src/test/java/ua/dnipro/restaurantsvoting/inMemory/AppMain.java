@@ -26,9 +26,9 @@ public class AppMain {
 
         userMemService.getAllLunchMenus().forEach(AppMain::displayLunch);
         System.out.println("===============================");
-        User user1 = userRepository.save(new User(Role.USER));
-        User user2 = userRepository.save(new User(Role.USER));
-        User user3 = userRepository.save(new User(Role.USER));
+        User user1 = userRepository.save(new User(Set.of(Role.USER)));
+        User user2 = userRepository.save(new User(Set.of(Role.USER)));
+        User user3 = userRepository.save(new User(Set.of(Role.USER)));
         userMemService.doVote(user1, 100002);
         userMemService.doVote(user2, 100002);
         restaurantRepository.getAll().forEach(restaurant -> System.out.println(
