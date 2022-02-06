@@ -7,6 +7,8 @@ public class Restaurant extends AbstractBaseEntity{
     //@OneToOne
     private LunchMenu lunchMenu;
 
+    private Integer votes = 0;
+
     public Restaurant(Integer id, String name, LunchMenu lunchMenu) {
         super(id);
         this.name = name;
@@ -15,6 +17,18 @@ public class Restaurant extends AbstractBaseEntity{
 
     public Restaurant(String restaurantName) {
         this(null, restaurantName, null);
+    }
+
+    public Integer getVotes() {
+        return votes;
+    }
+
+    public void resetVotes() {
+        votes = 0;
+    }
+
+    public void incrementVotes() {
+        votes++;
     }
 
     public String getName() {

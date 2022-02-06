@@ -28,4 +28,13 @@ public class User extends AbstractBaseEntity{
     public void setVotedToday(boolean votedToday) {
         this.votedToday = votedToday;
     }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", role=" + role +
+                ", votedToday=" + votedToday +
+                '}';
+    }
 }

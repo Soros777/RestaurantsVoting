@@ -2,6 +2,7 @@ package ua.dnipro.restaurantsvoting.util;
 
 import org.springframework.context.ConfigurableApplicationContext;
 import ua.dnipro.restaurantsvoting.model.*;
+import ua.dnipro.restaurantsvoting.repository.RestaurantRepository;
 import ua.dnipro.restaurantsvoting.repository.UserRepository;
 import ua.dnipro.restaurantsvoting.service.AdminService;
 import ua.dnipro.restaurantsvoting.service.UserService;
@@ -12,11 +13,13 @@ public class AppMain {
     private static AdminService adminService;
     private static UserService userService;
     private static UserRepository userRepository;
+    private static RestaurantRepository restaurantRepository;
 
     public static void runApp(ConfigurableApplicationContext appCtx) {
         adminService = appCtx.getBean(AdminService.class);
         userService = appCtx.getBean(UserService.class);
         userRepository = appCtx.getBean(UserRepository.class);
+        restaurantRepository = appCtx.getBean(RestaurantRepository.class);
         // Admin can input a restaurant and it's lunch menu of the day (2-5 items usually, just a dish name and price)
         // Menu changes each day (admins do the updates)
         adminAddThreeRestaurantsWIthMenus();
@@ -24,8 +27,12 @@ public class AppMain {
         userService.getAllLunchMenus().forEach(AppMain::displayLunch);
         System.out.println("===============================");
         User user1 = userRepository.save(new User(Role.USER));
+        User user2 = userRepository.save(new User(Role.USER));
+        User user3 = userRepository.save(new User(Role.USER));
         userService.doVote(user1, 100002);
-
+        userService.doVote(user2, 100002);
+        restaurantRepository.getAll().forEach(restaurant -> System.out.println(
+                "Restaurant: " + restaurant.getName() + ", votes: " + restaurant.getVotes()));
     }
 
     private static void displayLunch(LunchMenu lunchMenu) {

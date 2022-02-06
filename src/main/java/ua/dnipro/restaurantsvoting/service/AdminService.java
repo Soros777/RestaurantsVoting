@@ -35,6 +35,11 @@ public class AdminService {
         return true;
     }
 
+    // once a day admin reset not actual votes
+    public void resetVotes() {
+        // to do:
+    }
+
     public Restaurant getRestaurant(int id) {
         return restaurantRepository.get(id);
     }
