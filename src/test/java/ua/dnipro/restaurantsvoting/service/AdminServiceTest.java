@@ -1,6 +1,7 @@
 package ua.dnipro.restaurantsvoting.service;
 
 import org.junit.Assert;
+import static org.assertj.core.api.Assertions.assertThat;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +10,8 @@ import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.jdbc.SqlConfig;
 import org.springframework.test.context.junit4.SpringRunner;
 import ua.dnipro.restaurantsvoting.model.Restaurant;
+
+import java.util.Set;
 
 import static org.junit.Assert.*;
 
@@ -25,6 +28,9 @@ public class AdminServiceTest {
 
     @Test
     public void addANewRestaurant() {
+        adminService.addANewRestaurant("NewRestaurant");
+        Set<Restaurant> allRestaurants = adminService.getAllRestaurants();
+        assertThat(allRestaurants.size()).isEqualTo(4);
     }
 
     @Test

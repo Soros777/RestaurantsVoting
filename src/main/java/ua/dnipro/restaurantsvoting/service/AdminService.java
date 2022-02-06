@@ -7,6 +7,8 @@ import ua.dnipro.restaurantsvoting.model.LunchMenu;
 import ua.dnipro.restaurantsvoting.model.Restaurant;
 import ua.dnipro.restaurantsvoting.repository.AdminRepository;
 
+import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Service
@@ -24,7 +26,7 @@ public class AdminService {
 
     //addANewRestaurant (without menu)
     public Restaurant addANewRestaurant(String restaurantName) {
-        return null;
+        return adminRepository.saveRestaurant(new Restaurant(restaurantName));
     }
 
     //updateLunchMenu (for exist restaurant)
@@ -50,5 +52,10 @@ public class AdminService {
 
     public Dish addDish(String dishName, int price) {
         return null;
+    }
+
+    public Set<Restaurant> getAllRestaurants() {
+        List<Restaurant> restaurants = adminRepository.getAllRestaurants();
+        return new HashSet<>(restaurants);
     }
 }

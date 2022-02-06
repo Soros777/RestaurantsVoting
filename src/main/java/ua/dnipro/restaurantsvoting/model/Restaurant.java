@@ -4,16 +4,21 @@ import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
+@NamedQueries({
+        @NamedQuery(name = Restaurant.ALL, query = "SELECT r FROM Restaurant r")
+})
+
 @Entity
 @Table(name = "restaurants")
 public class Restaurant extends AbstractBaseEntity{
+    public static final String ALL = "Restaurant.getAll";
 
     @Column(name = "name", nullable = false)
     @NotBlank
     @Size(min = 3, max = 100)
     private String name;
 
-    @OneToOne(mappedBy = "restaurant")
+    @OneToOne(mappedBy = "restaurant", fetch = FetchType.LAZY)
     private LunchMenu lunchMenu;
 
     @Column(name = "votes", nullable = false, columnDefinition = "integer default 0")
