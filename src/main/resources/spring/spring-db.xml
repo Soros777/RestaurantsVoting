@@ -6,7 +6,7 @@
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd http://www.springframework.org/schema/jdbc http://www.springframework.org/schema/jdbc/spring-jdbc.xsd http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd">
 
-    <context:property-placeholder location="classpath:db/hsqlBD.properties" system-properties-mode="OVERRIDE"/>
+    <context:property-placeholder location="classpath:db/hsqlDB.properties" system-properties-mode="OVERRIDE"/>
 
     <context:component-scan base-package="ua.dnipro.restaurantsvoting.**.repository"/>
 
@@ -20,13 +20,13 @@
     </bean>
 
     <jdbc:initialize-database data-source="dataSource" enabled="${database.init}">
-        <jdbc:script location="${jdbc.initLocation}"/>
+        <jdbc:script location="${database.initLocation}"/>
         <jdbc:script encoding="utf-8" location="classpath:db/populateDb.sql"/>
     </jdbc:initialize-database>
 
     <bean id="entityManagerFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean"
           p:dataSource-ref="dataSource"
-          p:packagesToScan="ru.javawebinar.**.model">
+          p:packagesToScan="ua.dnipro.restaurantsvoting.**.model">
         <!--p:persistenceUnitName="persistenceUnit">-->
 
         <property name="jpaPropertyMap">

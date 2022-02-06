@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 import ua.dnipro.restaurantsvoting.model.Dish;
 import ua.dnipro.restaurantsvoting.model.LunchMenu;
 import ua.dnipro.restaurantsvoting.model.Restaurant;
+import ua.dnipro.restaurantsvoting.repository.AdminRepository;
 
 import java.util.Set;
 
@@ -13,6 +14,13 @@ public class AdminService {
 
     // Admin can input a restaurant and it's lunch menu of the day (2-5 items usually, just a dish name and price)
     // Menu changes each day (admins do the updates)
+
+    private AdminRepository adminRepository;
+
+    @Autowired
+    public AdminService(AdminRepository adminRepository) {
+        this.adminRepository = adminRepository;
+    }
 
     //addANewRestaurant (without menu)
     public Restaurant addANewRestaurant(String restaurantName) {
@@ -32,7 +40,7 @@ public class AdminService {
     }
 
     public Restaurant getRestaurant(int id) {
-        return null;
+        return adminRepository.getRestaurantById(id);
     }
 
     //add lunchMenu(without restaurant link)
