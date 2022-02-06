@@ -1,17 +1,25 @@
-package ua.dnipro.restaurantsvoting.service;
+package ua.dnipro.restaurantsvoting.inMemory.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ua.dnipro.restaurantsvoting.model.LunchMenu;
+import ua.dnipro.restaurantsvoting.model.Restaurant;
 import ua.dnipro.restaurantsvoting.model.User;
-import ua.dnipro.restaurantsvoting.repository.UserRepository;
+import ua.dnipro.restaurantsvoting.inMemory.repository.LunchMenuRepository;
+import ua.dnipro.restaurantsvoting.inMemory.repository.RestaurantRepository;
+import ua.dnipro.restaurantsvoting.inMemory.repository.UserRepository;
 import ua.dnipro.restaurantsvoting.util.DateTimeUtil;
 
 import java.util.HashSet;
 import java.util.Set;
 
 @Service
-public class UserService {
+public class UserMemService {
+
+    @Autowired
+    private LunchMenuRepository lunchMenuRepository;
+    @Autowired
+    private RestaurantRepository restaurantRepository;
     @Autowired
     private UserRepository userRepository;
 
@@ -19,7 +27,7 @@ public class UserService {
 
     // get lunchMenus of this day
     public Set<LunchMenu> getAllLunchMenus() {
-        return new HashSet<>();
+        return new HashSet<>(lunchMenuRepository.getAll());
     }
 
     // vote for the restaurant with liked lunchMenu
@@ -27,13 +35,11 @@ public class UserService {
         if(user.isVotedToday() && !DateTimeUtil.isBefore11am()) {
             return;
         }
-        /*
         Restaurant restaurant = restaurantRepository.get(restaurantId);
         restaurant.incrementVotes();
         restaurantRepository.save(restaurant);
         user.setVotedToday(true);
         userRepository.save(user);
-         */
     }
 
     /*

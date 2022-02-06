@@ -1,22 +1,31 @@
-package ua.dnipro.restaurantsvoting.service;
+package ua.dnipro.restaurantsvoting.inMemory.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ua.dnipro.restaurantsvoting.model.Dish;
 import ua.dnipro.restaurantsvoting.model.LunchMenu;
 import ua.dnipro.restaurantsvoting.model.Restaurant;
+import ua.dnipro.restaurantsvoting.inMemory.repository.DishRepository;
+import ua.dnipro.restaurantsvoting.inMemory.repository.LunchMenuRepository;
+import ua.dnipro.restaurantsvoting.inMemory.repository.RestaurantRepository;
 
 import java.util.Set;
 
 @Service
-public class AdminService {
+public class AdminMemService {
+    @Autowired
+    private RestaurantRepository restaurantRepository;
+    @Autowired
+    private DishRepository dishRepository;
+    @Autowired
+    private LunchMenuRepository menuRepository;
 
     // Admin can input a restaurant and it's lunch menu of the day (2-5 items usually, just a dish name and price)
     // Menu changes each day (admins do the updates)
 
     //addANewRestaurant (without menu)
     public Restaurant addANewRestaurant(String restaurantName) {
-        return null;
+        return restaurantRepository.save(new Restaurant(restaurantName));
     }
 
     //updateLunchMenu (for exist restaurant)
@@ -32,15 +41,15 @@ public class AdminService {
     }
 
     public Restaurant getRestaurant(int id) {
-        return null;
+        return restaurantRepository.get(id);
     }
 
     //add lunchMenu(without restaurant link)
     public LunchMenu addLunchMenu(Set<Dish> dishSet) {
-        return null;
+        return menuRepository.save(new LunchMenu(dishSet));
     }
 
     public Dish addDish(String dishName, int price) {
-        return null;
+        return dishRepository.save(new Dish(dishName, price));
     }
 }

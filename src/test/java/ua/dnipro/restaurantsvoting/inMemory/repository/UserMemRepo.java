@@ -1,8 +1,7 @@
-package ua.dnipro.restaurantsvoting.repository.inMemory;
+package ua.dnipro.restaurantsvoting.inMemory.repository;
 
 import org.springframework.stereotype.Repository;
 import ua.dnipro.restaurantsvoting.model.User;
-import ua.dnipro.restaurantsvoting.repository.UserRepository;
 
 @Repository
 public class UserMemRepo extends InMemoryBaseRepository<User> implements UserRepository {

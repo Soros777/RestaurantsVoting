@@ -1,12 +1,12 @@
-package ua.dnipro.restaurantsvoting.util;
+package ua.dnipro.restaurantsvoting.inMemory;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import ua.dnipro.restaurantsvoting.inMemory.repository.DishRepository;
+import ua.dnipro.restaurantsvoting.inMemory.repository.LunchMenuRepository;
+import ua.dnipro.restaurantsvoting.inMemory.repository.RestaurantRepository;
+import ua.dnipro.restaurantsvoting.inMemory.repository.UserRepository;
 import ua.dnipro.restaurantsvoting.model.*;
-import ua.dnipro.restaurantsvoting.repository.DishRepository;
-import ua.dnipro.restaurantsvoting.repository.LunchMenuRepository;
-import ua.dnipro.restaurantsvoting.repository.RestaurantRepository;
-import ua.dnipro.restaurantsvoting.repository.UserRepository;
 
 import java.util.Set;
 

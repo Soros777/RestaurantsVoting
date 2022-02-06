@@ -1,4 +1,4 @@
-package ua.dnipro.restaurantsvoting.repository.inMemory;
+package ua.dnipro.restaurantsvoting.inMemory.repository;
 
 import ua.dnipro.restaurantsvoting.model.AbstractBaseEntity;
 
