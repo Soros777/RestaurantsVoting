@@ -7,6 +7,7 @@ import ua.dnipro.restaurantsvoting.inMemory.service.UserMemService;
 import ua.dnipro.restaurantsvoting.model.*;
 import ua.dnipro.restaurantsvoting.inMemory.service.AdminMemService;
 
+import java.util.List;
 import java.util.Set;
 
 public class AppMain {
@@ -58,9 +59,9 @@ public class AppMain {
         Dish dish5 = adminService.addDish("Borshch", 45);
         Dish dish6 = adminService.addDish("Porridge", 25);
 
-        LunchMenu lunchMenu1 = adminService.addLunchMenu(Set.of(dish1, dish2));// a lunchMenu (has id), without restaurant link
-        LunchMenu lunchMenu2 = adminService.addLunchMenu(Set.of(dish3, dish4));
-        LunchMenu lunchMenu3 = adminService.addLunchMenu(Set.of(dish5, dish6));
+        LunchMenu lunchMenu1 = adminService.addLunchMenu(List.of(dish1, dish2));// a lunchMenu (has id), without restaurant link
+        LunchMenu lunchMenu2 = adminService.addLunchMenu(List.of(dish3, dish4));
+        LunchMenu lunchMenu3 = adminService.addLunchMenu(List.of(dish5, dish6));
 
         adminService.updateLunchMenu(restaurant1, lunchMenu1);
         adminService.updateLunchMenu(restaurant2, lunchMenu2);

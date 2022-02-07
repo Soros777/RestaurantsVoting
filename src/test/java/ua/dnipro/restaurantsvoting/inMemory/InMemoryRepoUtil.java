@@ -8,6 +8,7 @@ import ua.dnipro.restaurantsvoting.inMemory.repository.RestaurantRepository;
 import ua.dnipro.restaurantsvoting.inMemory.repository.UserRepository;
 import ua.dnipro.restaurantsvoting.model.*;
 
+import java.util.List;
 import java.util.Set;
 
 @Component
@@ -29,9 +30,9 @@ public class InMemoryRepoUtil {
         Dish dish5 = dishRepository.save(new Dish("Omar", 45));
         Dish dish6 = dishRepository.save(new Dish("Porridge", 12));
 
-        LunchMenu lunchMenu1 = lunchMenuRepository.save(new LunchMenu(Set.of(dish1, dish2)));
-        LunchMenu lunchMenu2 = lunchMenuRepository.save(new LunchMenu(Set.of(dish3, dish4)));
-        LunchMenu lunchMenu3 = lunchMenuRepository.save(new LunchMenu(Set.of(dish5, dish6)));
+        LunchMenu lunchMenu1 = lunchMenuRepository.save(new LunchMenu(List.of(dish1, dish2)));
+        LunchMenu lunchMenu2 = lunchMenuRepository.save(new LunchMenu(List.of(dish3, dish4)));
+        LunchMenu lunchMenu3 = lunchMenuRepository.save(new LunchMenu(List.of(dish5, dish6)));
 
         Restaurant restaurant1 = restaurantRepository.save(new Restaurant("Dubrava"));
         Restaurant restaurant2 = restaurantRepository.save(new Restaurant("Okolica"));

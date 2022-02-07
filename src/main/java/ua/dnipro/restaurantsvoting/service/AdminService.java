@@ -54,7 +54,7 @@ public class AdminService {
     }
 
     //add lunchMenu(without restaurant link)
-    public LunchMenu addLunchMenu(Set<Dish> dishSet) {
+    public LunchMenu addLunchMenu(List<Dish> dishSet) {
         return null;
     }
 
@@ -76,5 +76,9 @@ public class AdminService {
 
     public List<User> getAllUsers() {
         return adminRepository.getAllUsers();
+    }
+
+    public LunchMenu getById(int id) {
+        return adminRepository.getById(id);
     }
 }

@@ -1,7 +1,7 @@
 package ua.dnipro.restaurantsvoting.model;
 
 import javax.persistence.*;
-import java.util.Set;
+import java.util.List;
 
 @NamedQueries({
         @NamedQuery(name = LunchMenu.ALL, query = "SELECT lm FROM LunchMenu lm")
@@ -17,22 +17,22 @@ public class LunchMenu extends AbstractBaseEntity{
     private Restaurant restaurant;
 
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "lunchMenu")
-    private Set<Dish> dishes;
+    private List<Dish> dishes;
 
     public LunchMenu() {
     }
 
-    public LunchMenu(Integer id, Restaurant restaurant, Set<Dish> dishes) {
+    public LunchMenu(Integer id, Restaurant restaurant, List<Dish> dishes) {
         super(id);
         this.restaurant = restaurant;
         this.dishes = dishes;
     }
 
-    public LunchMenu(Restaurant restaurant, Set<Dish> dishes) {
+    public LunchMenu(Restaurant restaurant, List<Dish> dishes) {
         this(null, restaurant, dishes);
     }
 
-    public LunchMenu(Set<Dish> dishes) {
+    public LunchMenu(List<Dish> dishes) {
         this(null, dishes);
     }
 
@@ -50,11 +50,11 @@ public class LunchMenu extends AbstractBaseEntity{
         this.restaurant = restaurant;
     }
 
-    public Set<Dish> getDishes() {
+    public List<Dish> getDishes() {
         return dishes;
     }
 
-    public void setDishes(Set<Dish> dishes) {
+    public void setDishes(List<Dish> dishes) {
         this.dishes = dishes;
     }
 

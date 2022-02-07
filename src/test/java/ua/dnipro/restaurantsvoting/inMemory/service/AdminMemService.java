@@ -9,6 +9,7 @@ import ua.dnipro.restaurantsvoting.inMemory.repository.DishRepository;
 import ua.dnipro.restaurantsvoting.inMemory.repository.LunchMenuRepository;
 import ua.dnipro.restaurantsvoting.inMemory.repository.RestaurantRepository;
 
+import java.util.List;
 import java.util.Set;
 
 @Service
@@ -45,7 +46,7 @@ public class AdminMemService {
     }
 
     //add lunchMenu(without restaurant link)
-    public LunchMenu addLunchMenu(Set<Dish> dishSet) {
+    public LunchMenu addLunchMenu(List<Dish> dishSet) {
         return menuRepository.save(new LunchMenu(dishSet));
     }
 

@@ -49,4 +49,8 @@ public class AdminRepository {
     public List<LunchMenu> getAllLunchMenus() {
         return em.createNamedQuery(LunchMenu.ALL, LunchMenu.class).getResultList();
     }
+
+    public LunchMenu getById(int lunchMenuId) {
+        return em.find(LunchMenu.class, lunchMenuId);
+    }
 }

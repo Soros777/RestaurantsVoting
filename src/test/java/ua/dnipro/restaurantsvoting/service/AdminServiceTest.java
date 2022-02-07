@@ -11,9 +11,10 @@ import org.springframework.test.context.jdbc.SqlConfig;
 import org.springframework.test.context.junit4.SpringRunner;
 import ua.dnipro.restaurantsvoting.TestDates;
 import ua.dnipro.restaurantsvoting.model.Dish;
+import ua.dnipro.restaurantsvoting.model.LunchMenu;
 import ua.dnipro.restaurantsvoting.model.Restaurant;
 
-import java.util.Set;
+import java.util.*;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static ua.dnipro.restaurantsvoting.TestDates.*;
@@ -63,7 +64,23 @@ public class AdminServiceTest {
 
     @Test
     public void updateLunchMenu() {
-        adminService.getAllLunchMenus().forEach(System.out::println);
+        Map<Integer, List<Dish>> testMatchMap = new HashMap<>();
+        testMatchMap.put(RESTAURANT_1.getId(), List.of(DISH_1, DISH_2));
+        testMatchMap.put(RESTAURANT_2.getId(), List.of(DISH_3, DISH_4));
+        testMatchMap.put(RESTAURANT_3.getId(), List.of(DISH_5, DISH_6));
+        adminService.getAllLunchMenus().forEach(lunchMenu ->
+                DISH_MATCHER.assertMatch(lunchMenu.getDishes(), testMatchMap.get(lunchMenu.getRestaurant().getId())));
+    }
+
+    @Test
+    public void compareTwoDishLists() {
+        LunchMenu lunchMenu = adminService.getById(LUNCH_MENU_1.getId());
+        DISH_MATCHER.assertMatch(lunchMenu.getDishes(), LUNCH_MENU_1.getDishes());
+    }
+
+    @Test
+    public void compareInitialsLunchMenus() {List<LunchMenu> allLunchMenus = adminService.getAllLunchMenus();
+        LUNCH_MENU_MATCHER.assertMatch(allLunchMenus, LUNCH_MENU_1, LUNCH_MENU_2, LUNCH_MENU_3);
     }
 
     @Test
