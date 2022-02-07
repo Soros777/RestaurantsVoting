@@ -3,6 +3,7 @@ package ua.dnipro.restaurantsvoting.repository;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 import ua.dnipro.restaurantsvoting.model.AbstractBaseEntity;
+import ua.dnipro.restaurantsvoting.model.LunchMenu;
 import ua.dnipro.restaurantsvoting.model.Restaurant;
 import ua.dnipro.restaurantsvoting.model.User;
 
@@ -39,5 +40,13 @@ public class AdminRepository {
     public boolean resetAllVotes() {
         return em.createNamedQuery(Restaurant.RESET_VOTES)
                 .executeUpdate() != 0 && em.createNamedQuery(User.RESET_VOTED).executeUpdate() != 0;
+    }
+
+    public List<User> getAllUsers() {
+        return em.createNamedQuery(User.ALL, User.class).getResultList();
+    }
+
+    public List<LunchMenu> getAllLunchMenus() {
+        return em.createNamedQuery(LunchMenu.ALL, LunchMenu.class).getResultList();
     }
 }

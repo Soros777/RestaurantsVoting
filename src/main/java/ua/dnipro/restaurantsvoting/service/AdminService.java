@@ -40,6 +40,10 @@ public class AdminService {
         return adminRepository.saveEntity(restaurant) != null && adminRepository.saveEntity(lunchMenu) != null;
     }
 
+    public List<LunchMenu> getAllLunchMenus() {
+        return adminRepository.getAllLunchMenus();
+    }
+
     // once a day admin reset not actual votes
     public boolean resetVotes() {
         return adminRepository.resetAllVotes();
@@ -68,5 +72,9 @@ public class AdminService {
             return false;
         }
         return userRepository.doVote(restaurantId, user);
+    }
+
+    public List<User> getAllUsers() {
+        return adminRepository.getAllUsers();
     }
 }

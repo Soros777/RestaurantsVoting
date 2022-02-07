@@ -62,4 +62,20 @@ public class TestDates {
         RESTAURANT_2.setLunchMenu(LUNCH_MENU_2);
         RESTAURANT_3.setLunchMenu(LUNCH_MENU_3);
     }
+
+    public static User getCopy(User user) {
+        return new User(user);
+    }
+
+    public static Restaurant getCopy(Restaurant restaurant) {
+        return new Restaurant(restaurant);
+    }
+
+    public static LunchMenu getCopy(LunchMenu lunchMenu) {
+        return new LunchMenu(lunchMenu);
+    }
+
+    public static Dish getCopy(Dish dish) {
+        return new Dish(dish);
+    }
 }

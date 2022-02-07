@@ -10,6 +10,7 @@ import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.jdbc.SqlConfig;
 import org.springframework.test.context.junit4.SpringRunner;
 import ua.dnipro.restaurantsvoting.TestDates;
+import ua.dnipro.restaurantsvoting.model.Dish;
 import ua.dnipro.restaurantsvoting.model.Restaurant;
 
 import java.util.Set;
@@ -62,6 +63,7 @@ public class AdminServiceTest {
 
     @Test
     public void updateLunchMenu() {
+        adminService.getAllLunchMenus().forEach(System.out::println);
     }
 
     @Test
@@ -73,11 +75,15 @@ public class AdminServiceTest {
         assertThat(adminService.getRestaurant(RESTAURANT_1.getId()).getVotes()).isEqualTo(2);
         assertThat(adminService.getRestaurant(RESTAURANT_2.getId()).getVotes()).isEqualTo(1);
         assertThat(adminService.getRestaurant(RESTAURANT_3.getId()).getVotes()).isEqualTo(1);
+        adminService.getAllUsers().forEach(user ->
+                assertThat(user.isVotedToday()).isTrue());
 
         assertThat(adminService.resetVotes()).isEqualTo(true);
 
         adminService.getAllRestaurants().forEach(restaurant ->
                 assertThat(restaurant.getVotes()).isEqualTo(0));
+        adminService.getAllUsers().forEach(user ->
+                assertThat(user.isVotedToday()).isFalse());
     }
 
     @Test

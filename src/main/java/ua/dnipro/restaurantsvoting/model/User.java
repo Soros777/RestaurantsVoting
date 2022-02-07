@@ -4,13 +4,15 @@ import javax.persistence.*;
 import java.util.Set;
 
 @NamedQueries({
-        @NamedQuery(name = User.RESET_VOTED, query = "UPDATE User u SET u.votedToday=false")
+        @NamedQuery(name = User.RESET_VOTED, query = "UPDATE User u SET u.votedToday=false"),
+        @NamedQuery(name = User.ALL, query = "SELECT u FROM User u")
 })
 
 @Entity
 @Table(name = "users")
 public class User extends AbstractBaseEntity{
     public static final String RESET_VOTED = "User.resetVoted";
+    public static final String ALL = "User.all";
 
     @Enumerated(EnumType.STRING)
     @CollectionTable(name = "user_roles", joinColumns = @JoinColumn(name = "user_id"),
@@ -36,6 +38,12 @@ public class User extends AbstractBaseEntity{
 
     public User(Set<Role> roles) {
         this(null, roles);
+    }
+
+    public User(User u) {
+        this.id = u.id;
+        this.roles = u.roles;
+        this.votedToday = u.votedToday;
     }
 
     public Set<Role> getRoles() {

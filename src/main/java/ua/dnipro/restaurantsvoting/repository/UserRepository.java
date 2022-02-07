@@ -7,6 +7,8 @@ import ua.dnipro.restaurantsvoting.model.User;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import java.util.Collection;
+import java.util.List;
 
 @Repository
 @Transactional(readOnly = true)

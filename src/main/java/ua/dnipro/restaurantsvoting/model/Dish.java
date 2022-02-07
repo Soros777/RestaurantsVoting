@@ -1,8 +1,6 @@
 package ua.dnipro.restaurantsvoting.model;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -20,6 +18,10 @@ public class Dish extends AbstractBaseEntity{
     @NotNull
     private Integer price;
 
+    @ManyToOne
+    @JoinColumn(name = "lunch_menu_id", nullable = false)
+    private LunchMenu lunchMenu;
+
     public Dish() {
     }
 
@@ -31,6 +33,20 @@ public class Dish extends AbstractBaseEntity{
 
     public Dish(String dishName, int price) {
         this(null, dishName, price);
+    }
+
+    public Dish(Dish d) {
+        this.id = d.id;
+        this.dishName = d.dishName;
+        this.price = d.price;
+    }
+
+    public LunchMenu getLunchMenu() {
+        return lunchMenu;
+    }
+
+    public void setLunchMenu(LunchMenu lunchMenu) {
+        this.lunchMenu = lunchMenu;
     }
 
     public String getDishName() {
