@@ -5,13 +5,17 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
 @NamedQueries({
-        @NamedQuery(name = Restaurant.ALL, query = "SELECT r FROM Restaurant r")
+        @NamedQuery(name = Restaurant.ALL, query = "SELECT r FROM Restaurant r"),
+        @NamedQuery(name = Restaurant.ADD_VOTE, query = "UPDATE Restaurant r SET r.votes=r.votes+1 WHERE r.id=:id"),
+        @NamedQuery(name = Restaurant.RESET_VOTES, query = "UPDATE Restaurant r SET r.votes=0")
 })
 
 @Entity
 @Table(name = "restaurants")
 public class Restaurant extends AbstractBaseEntity{
     public static final String ALL = "Restaurant.getAll";
+    public static final String ADD_VOTE = "Restaurant.addVote";
+    public static final String RESET_VOTES = "Restaurants.resetVotes";
 
     @Column(name = "name", nullable = false)
     @NotBlank
@@ -41,14 +45,6 @@ public class Restaurant extends AbstractBaseEntity{
         return votes;
     }
 
-    public void resetVotes() {
-        votes = 0;
-    }
-
-    public void incrementVotes() {
-        votes++;
-    }
-
     public String getName() {
         return name;
     }
@@ -63,6 +59,10 @@ public class Restaurant extends AbstractBaseEntity{
 
     public void setLunchMenu(LunchMenu lunchMenu) {
         this.lunchMenu = lunchMenu;
+    }
+
+    public void setVotes(Integer votes) {
+        this.votes = votes;
     }
 
     @Override

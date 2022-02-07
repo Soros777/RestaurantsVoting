@@ -3,9 +3,14 @@ package ua.dnipro.restaurantsvoting.model;
 import javax.persistence.*;
 import java.util.Set;
 
+@NamedQueries({
+        @NamedQuery(name = User.RESET_VOTED, query = "UPDATE User u SET u.votedToday=false")
+})
+
 @Entity
 @Table(name = "users")
 public class User extends AbstractBaseEntity{
+    public static final String RESET_VOTED = "User.resetVoted";
 
     @Enumerated(EnumType.STRING)
     @CollectionTable(name = "user_roles", joinColumns = @JoinColumn(name = "user_id"),
@@ -14,7 +19,7 @@ public class User extends AbstractBaseEntity{
     @ElementCollection(fetch = FetchType.EAGER)
     private Set<Role> roles;
 
-    @Column(name = "voret_today", nullable = false, columnDefinition = "boolean default false")
+    @Column(name = "voted_today", nullable = false, columnDefinition = "boolean default false")
     private boolean votedToday = false;
 
     public User() {
@@ -23,6 +28,10 @@ public class User extends AbstractBaseEntity{
     public User(Integer id, Set<Role> roles) {
         super(id);
         this.roles = roles;
+    }
+
+    public User(Role role) {
+        this(Set.of(role));
     }
 
     public User(Set<Role> roles) {

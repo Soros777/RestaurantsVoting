@@ -36,7 +36,7 @@ public class UserMemService {
             return;
         }
         Restaurant restaurant = restaurantRepository.get(restaurantId);
-        restaurant.incrementVotes();
+        restaurant.setVotes(restaurant.getVotes()+1);
         restaurantRepository.save(restaurant);
         user.setVotedToday(true);
         userRepository.save(user);
