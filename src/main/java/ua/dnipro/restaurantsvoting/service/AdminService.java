@@ -93,10 +93,6 @@ public class AdminService {
         return adminRepository.getRestaurantById(id);
     }
 
-    public Dish addDish(String dishName, int price) {
-        return null;
-    }
-
     public Set<Restaurant> getAllRestaurants() {
         List<Restaurant> restaurants = adminRepository.getAllRestaurants();
         return new HashSet<>(restaurants);

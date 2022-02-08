@@ -126,18 +126,4 @@ public class AdminServiceTest {
         adminService.getAllUsers().forEach(user ->
                 assertThat(user.isVotedToday()).isFalse());
     }
-
-    @Test
-    public void getRestaurant() {
-        Restaurant restaurant = adminService.getRestaurant(100000);
-        Assert.assertNotNull(restaurant);
-    }
-
-    @Test
-    public void addLunchMenu() {
-    }
-
-    @Test
-    public void addDish() {
-    }
 }

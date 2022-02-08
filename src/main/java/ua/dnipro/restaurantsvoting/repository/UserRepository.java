@@ -2,12 +2,12 @@ package ua.dnipro.restaurantsvoting.repository;
 
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
+import ua.dnipro.restaurantsvoting.model.LunchMenu;
 import ua.dnipro.restaurantsvoting.model.Restaurant;
 import ua.dnipro.restaurantsvoting.model.User;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import java.util.Collection;
 import java.util.List;
 
 @Repository
@@ -37,5 +37,9 @@ public class UserRepository {
         user.setVotedToday(true);
         em.merge(user);
         return true;
+    }
+
+    public List<LunchMenu> getAllLunchMenus() {
+        return em.createNamedQuery(LunchMenu.ALL, LunchMenu.class).getResultList();
     }
 }
