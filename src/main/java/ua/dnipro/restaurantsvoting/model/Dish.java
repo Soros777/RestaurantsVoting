@@ -5,9 +5,14 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+@NamedQueries({
+        @NamedQuery(name = Dish.DELETE, query = "DELETE FROM Dish d WHERE d.id=:id")
+})
+
 @Entity
 @Table(name = "dishes")
 public class Dish extends AbstractBaseEntity{
+    public static final String DELETE = "Dish.delete";
 
     @Column(name = "dish_name", nullable = false)
     @NotBlank
@@ -19,7 +24,7 @@ public class Dish extends AbstractBaseEntity{
     private Integer price;
 
     @ManyToOne
-    @JoinColumn(name = "lunch_menu_id", nullable = false)
+    @JoinColumn(name = "lunch_menu_id")
     private LunchMenu lunchMenu;
 
     public Dish() {
@@ -31,7 +36,14 @@ public class Dish extends AbstractBaseEntity{
         this.price = price;
     }
 
-    public Dish(String dishName, int price) {
+    public Dish(Integer id, String dishName, Integer price, LunchMenu lunchMenu) {
+        super(id);
+        this.dishName = dishName;
+        this.price = price;
+        this.lunchMenu = lunchMenu;
+    }
+
+    public Dish(@NotNull String dishName, @NotNull Integer price) {
         this(null, dishName, price);
     }
 

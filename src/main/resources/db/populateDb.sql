@@ -21,7 +21,8 @@ VALUES ('Omars', 150, 100003),
        ('Biffshtex', 75, 100004),
        ('Olivie', 30, 100004),
        ('Borshch', 45, 100005),
-       ('Porridge', 25, 100005);
+       ('Porridge', 25, 100005),
+       ('Third dish', 77, 100005);
 
 INSERT INTO users (voted_today)
 VALUES (FALSE),
@@ -30,7 +31,7 @@ VALUES (FALSE),
        (FALSE);
 
 INSERT INTO user_roles (user_id, role)
-VALUES (100012, 'ADMIN'),
-       (100013, 'USER'),
+VALUES (100013, 'ADMIN'),
        (100014, 'USER'),
-       (100015, 'USER');
+       (100015, 'USER'),
+       (100016, 'USER');

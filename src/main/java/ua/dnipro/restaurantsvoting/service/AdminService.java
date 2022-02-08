@@ -10,6 +10,7 @@ import ua.dnipro.restaurantsvoting.repository.AdminRepository;
 import ua.dnipro.restaurantsvoting.repository.UserRepository;
 import ua.dnipro.restaurantsvoting.util.DateTimeUtil;
 
+import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -28,16 +29,55 @@ public class AdminService {
         this.userRepository = userRepository;
     }
 
-    //addANewRestaurant (without menu)
-    public Restaurant addANewRestaurant(String restaurantName) {
-        return adminRepository.saveEntity(new Restaurant(restaurantName));
+    public Restaurant addANewRestaurant(String restaurantName, Dish ... dishes) {
+        LunchMenu lunchMenu = createLunchMenu(Arrays.asList(dishes));
+        Restaurant restaurant = new Restaurant(restaurantName, lunchMenu);
+        lunchMenu.setRestaurant(restaurant);
+        return adminRepository.saveEntity(restaurant);
     }
 
-    //updateLunchMenu (for exist restaurant)
-    public boolean updateLunchMenu(Restaurant restaurant, LunchMenu lunchMenu) {
-        restaurant.setLunchMenu(lunchMenu);
-        lunchMenu.setRestaurant(restaurant);
-        return adminRepository.saveEntity(restaurant) != null && adminRepository.saveEntity(lunchMenu) != null;
+    private LunchMenu createLunchMenu(List<Dish> dishes) {
+        dishes.forEach(adminRepository::saveEntity);
+        LunchMenu lunchMenu = new LunchMenu(dishes);
+        return adminRepository.saveEntity(lunchMenu);
+    }
+
+    public boolean updateLunchMenu(Restaurant restaurant, Dish ... dishes) {
+        LunchMenu newLunchMenu = updateLunchMenu(dishes, restaurant);
+        restaurant.setLunchMenu(newLunchMenu);
+        return adminRepository.saveEntity(restaurant) != null;
+    }
+
+    private LunchMenu updateLunchMenu(Dish[] dishes, Restaurant restaurant) {
+        LunchMenu oldLunchMenu = restaurant.getLunchMenu();
+        List<Dish> oldDishes = oldLunchMenu.getDishes();
+        List<Dish> newDishes = updateDishes(oldDishes, Arrays.asList(dishes));
+        oldLunchMenu.setDishes(newDishes);
+        LunchMenu newLunchMenu = adminRepository.saveEntity(oldLunchMenu);
+        return newLunchMenu;
+    }
+
+    private List<Dish> updateDishes(List<Dish> oldDishes, List<Dish> newDishes) {
+        for (int i = 0; i < oldDishes.size(); i++) {
+            if(newDishes.size() <= i) {
+                adminRepository.deleteDish(oldDishes.get(i).getId());
+                continue;
+            }
+            Dish oldDish = oldDishes.get(i);
+            Dish newDish = newDishes.get(i);
+            newDish.setId(oldDish.getId());
+            newDish.setLunchMenu(oldDish.getLunchMenu());
+            adminRepository.saveEntity(newDish);
+        }
+        if(newDishes.size() > oldDishes.size()) {
+            LunchMenu lunchMenu = oldDishes.get(0).getLunchMenu();
+            for (int i = oldDishes.size(); i < newDishes.size(); i++) {
+                Dish newDish = newDishes.get(i);
+                newDish.setLunchMenu(lunchMenu);
+                adminRepository.saveEntity(newDish);
+            }
+        }
+        return newDishes;
     }
 
     public List<LunchMenu> getAllLunchMenus() {
@@ -51,11 +91,6 @@ public class AdminService {
 
     public Restaurant getRestaurant(int id) {
         return adminRepository.getRestaurantById(id);
-    }
-
-    //add lunchMenu(without restaurant link)
-    public LunchMenu addLunchMenu(List<Dish> dishSet) {
-        return null;
     }
 
     public Dish addDish(String dishName, int price) {

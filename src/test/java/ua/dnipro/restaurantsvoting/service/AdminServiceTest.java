@@ -36,10 +36,9 @@ public class AdminServiceTest {
     }
 
     @Test
-    public void addANewRestaurant() {
-        adminService.addANewRestaurant("NewRestaurant");
-        Set<Restaurant> allRestaurants = adminService.getAllRestaurants();
-        assertThat(allRestaurants.size()).isEqualTo(4);
+    public void addNewRestaurant() {
+        Restaurant restaurant = adminService.addANewRestaurant("New restaurant", DISH_7, DISH_8);
+        RESTAURANT_MATCHER.assertMatch(restaurant, RESTAURANT_4);
     }
 
     @Test
@@ -63,11 +62,35 @@ public class AdminServiceTest {
     }
 
     @Test
-    public void updateLunchMenu() {
+    public void assureLunchMenuExists() {
+        List<LunchMenu> allLunchMenus = adminService.getAllLunchMenus();
+        assertThat(allLunchMenus).contains(LUNCH_MENU_3);
+    }
+
+    @Test
+    public void updateLunchMenuMoreDishes() {
+        adminService.updateLunchMenu(RESTAURANT_2, NEW_DISH_1, NEW_DISH_2,  NEW_DISH_3);
+        LUNCH_MENU_MATCHER.assertMatch(adminService.getRestaurant(RESTAURANT_2.getId()).getLunchMenu(), UPDATED_LUNCH_MENU_MORE_DISHES);
+    }
+
+    @Test
+    public void updateLunchMenuLessDishes() {
+        adminService.updateLunchMenu(RESTAURANT_3, NEW_DISH_4, NEW_DISH_5);
+        LUNCH_MENU_MATCHER.assertMatch(adminService.getRestaurant(RESTAURANT_3.getId()).getLunchMenu(), UPDATED_LUNCH_MENU_LESS_DISHES);
+    }
+
+    @Test
+    public void checkOneLunchMenu() {
+        LunchMenu lunchMenu = adminService.getById(LUNCH_MENU_3.getId());
+        assertThat(lunchMenu).usingRecursiveComparison().isEqualTo(LUNCH_MENU_3);
+    }
+
+    @Test
+    public void checkInitialDishes() {
         Map<Integer, List<Dish>> testMatchMap = new HashMap<>();
         testMatchMap.put(RESTAURANT_1.getId(), List.of(DISH_1, DISH_2));
         testMatchMap.put(RESTAURANT_2.getId(), List.of(DISH_3, DISH_4));
-        testMatchMap.put(RESTAURANT_3.getId(), List.of(DISH_5, DISH_6));
+        testMatchMap.put(RESTAURANT_3.getId(), List.of(DISH_5, DISH_6, DISH_9));
         adminService.getAllLunchMenus().forEach(lunchMenu ->
                 DISH_MATCHER.assertMatch(lunchMenu.getDishes(), testMatchMap.get(lunchMenu.getRestaurant().getId())));
     }
@@ -79,7 +102,8 @@ public class AdminServiceTest {
     }
 
     @Test
-    public void compareInitialsLunchMenus() {List<LunchMenu> allLunchMenus = adminService.getAllLunchMenus();
+    public void compareInitialsLunchMenus() {
+        List<LunchMenu> allLunchMenus = adminService.getAllLunchMenus();
         LUNCH_MENU_MATCHER.assertMatch(allLunchMenus, LUNCH_MENU_1, LUNCH_MENU_2, LUNCH_MENU_3);
     }
 

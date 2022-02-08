@@ -2,10 +2,7 @@ package ua.dnipro.restaurantsvoting.repository;
 
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
-import ua.dnipro.restaurantsvoting.model.AbstractBaseEntity;
-import ua.dnipro.restaurantsvoting.model.LunchMenu;
-import ua.dnipro.restaurantsvoting.model.Restaurant;
-import ua.dnipro.restaurantsvoting.model.User;
+import ua.dnipro.restaurantsvoting.model.*;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -52,5 +49,12 @@ public class AdminRepository {
 
     public LunchMenu getById(int lunchMenuId) {
         return em.find(LunchMenu.class, lunchMenuId);
+    }
+
+    @Transactional
+    public boolean deleteDish(int id) {
+        return em.createNamedQuery(Dish.DELETE)
+                .setParameter("id", id)
+                .executeUpdate() != 0;
     }
 }

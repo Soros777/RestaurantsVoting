@@ -13,7 +13,7 @@ public class LunchMenu extends AbstractBaseEntity{
     public static final String ALL = "LunchMenu.getAll";
 
     @OneToOne
-    @JoinColumn(name = "restaurant_id", nullable = false, unique = true)
+    @JoinColumn(name = "restaurant_id", unique = true)
     private Restaurant restaurant;
 
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "lunchMenu")
